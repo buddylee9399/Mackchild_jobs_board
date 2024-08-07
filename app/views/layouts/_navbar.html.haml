@@ -1,0 +1,19 @@
+%nav.navbar.navbar-expand-lg.bg-body-tertiary
+  .container-fluid
+    %a.navbar-brand{href: "#"} Rails Jobs
+    %button.navbar-toggler{"aria-controls" => "navbarNavDropdown", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarNavDropdown", "data-bs-toggle" => "collapse", type: "button"}
+      %span.navbar-toggler-icon
+    #navbarNavDropdown.collapse.navbar-collapse
+      %ul.navbar-nav
+        %li.nav-item
+          = link_to 'All Jobs', root_path, class: 'nav-link'
+        %li.nav-item
+          = link_to 'New Jobs', new_job_path, class: 'nav-link'          
+        %li.nav-item
+          = link_to 'New Category', new_category_path, class: 'nav-link'           
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+            Categories
+          %ul.dropdown-menu
+            - Category.all.each do |category|
+              %li= link_to category.name, jobs_path(category: category.name), class: 'dropdown-item'          

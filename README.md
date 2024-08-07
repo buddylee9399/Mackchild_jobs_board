@@ -1,24 +1,35 @@
-# README
+# THINGS IN HERE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## GEMS
 
-Things you may want to cover:
+```
+gem "sassc-rails"
+gem 'simple_form'
+gem 'haml'
+gem 'bootstrap-sass'
+```
+- i didnt use bootstrap sass
+- sass rails for .scss files
 
-* Ruby version
+## MODELS
+- categories have many jobs
+- jobs belong to category
 
-* System dependencies
+## OTHER
+- did his own styling
+- filtering the navbar based on the categories
 
-* Configuration
+```
+  def index
+    if params[:category].blank?
+      @jobs = Job.all.order("created_at DESC")
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @jobs = Job.where(category_id: @category_id).order("created_at DESC")
+    end
+  end
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+-- and the link on the navbar, passing it the category
+  - Category.all.each do |category|
+    %li= link_to category.name, jobs_path(category: category.name)
+```
